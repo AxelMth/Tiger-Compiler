@@ -23,16 +23,18 @@ keywords = {'array': 'ARRAY',
 # List of tokens that can be recognized and are handled by the current
 # grammar rules.
 tokens = ('END', 'IN', 'LET', 'VAR',
-          'PLUS', 'TIMES','OR','AND',
+          'PLUS', 'TIMES','OR','AND','MINUS','DIVIDE',
           'COMMA', 'SEMICOLON',
           'LPAREN', 'RPAREN',
           'NUMBER', 'ID',
-          'COLON', 'ASSIGN')
+          'COLON', 'ASSIGN','IF','THEN','ELSE')
 
 t_PLUS = r'\+'
 t_TIMES = r'\*'
 t_OR = r'\|'
 t_AND = r'&'
+t_MINUS = r'\-'
+t_DIVIDE = r'\/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_COLON = r':'
@@ -42,10 +44,7 @@ t_SEMICOLON = r';'
 
 t_ignore = ' \t'
 
-# Count lines when newlines are encountered
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+# Count lines when newlines are encounteredCan
 
 # Distinguish between identifier and keyword. If the keyword is not also
 # in the tokens list, this is a syntax error pure and simple since we do

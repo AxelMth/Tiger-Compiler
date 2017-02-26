@@ -39,6 +39,14 @@ class TestLexer(unittest.TestCase):
         self.check('ID', 'foobar')
         self.check_end()
 
+    def test_if_then_else(self):
+        lexer.input("if")
+        self.check('IF',"if")
+        lexer.input("then")
+        self.check('THEN',"then")
+        lexer.input("else")
+        self.check('ELSE',"else")
+
     def test_error(self):
         lexer.input("foobar@")
         self.check('ID', 'foobar')

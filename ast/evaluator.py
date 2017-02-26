@@ -21,8 +21,21 @@ class Evaluator:
             return left | right
         elif op == '&':
             return left & right
+        elif op == '/':
+            return left / right
+        elif op == '-':
+            return left - right
         else:
             raise SyntaxError("unknown operator %s" % op)
+
+    @visitor(IfThenElse)
+    def visit(self, ifThenElse):
+        then_part, else_part = ifThenElse.then_part.accept(self), ifThenElse.else_part.accept(self)
+        condition = ifThenElse.condition.accept(self)
+        if condition != 0:
+            return then_part
+        else:
+            return else_part
 
     @visitor(None)
     def visit(self, node):
