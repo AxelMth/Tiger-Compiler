@@ -31,5 +31,8 @@ class TestEvaluator(unittest.TestCase):
         self.parse_check('1 + 2 * 3', 7)
         self.parse_check('2 * 3 + 1', 7)
 
+    def test_binary_op(self):
+    	self.parse_check('1|2',3)
+
 if __name__ == '__main__':
     unittest.main()
