@@ -29,6 +29,7 @@ class Dumper(Visitor):
         then_part,else_part = ifThenElse.then_part.accept(self),ifThenElse.else_part.accept(self)
         condition = ifThenElse.condition.accept(self)
         return "if %s then %s else %s" % (condition,then_part,else_part)
+    
     @visitor(Identifier)
     def visit(self, id):
         return id.name
