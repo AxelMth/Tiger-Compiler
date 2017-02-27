@@ -45,6 +45,9 @@ t_SEMICOLON = r';'
 t_ignore = ' \t'
 
 # Count lines when newlines are encounteredCan
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 # Distinguish between identifier and keyword. If the keyword is not also
 # in the tokens list, this is a syntax error pure and simple since we do
