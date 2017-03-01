@@ -11,6 +11,8 @@ class Evaluator:
 
     @visitor(BinaryOperator)
     def visit(self, binop):
+        '''When BinaryOperator recognized, define how to behave.
+        Return the result of the binary operation for each BinaryOperator.'''
         left, right = binop.left.accept(self), binop.right.accept(self)
         op = binop.op
         if op == '+':
@@ -40,6 +42,8 @@ class Evaluator:
 
     @visitor(IfThenElse)
     def visit(self, ifThenElse):
+        '''When IfThenElse recognized, define what to return.
+        Return then_part if condition is true else return else_part.'''
         then_part, else_part = ifThenElse.then_part.accept(self), ifThenElse.else_part.accept(self)
         condition = ifThenElse.condition.accept(self)
         if condition != 0:
