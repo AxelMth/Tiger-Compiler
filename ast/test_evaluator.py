@@ -37,6 +37,14 @@ class TestEvaluator(unittest.TestCase):
         self.parse_check('(1&3)|5',5)
         self.parse_check('(15-6)/9',1)
         self.parse_check('10-2-1',7)
+        self.parse_check('1==1',1)
+        self.parse_check('1==2',0)
+        self.parse_check('1<2',1)
+        self.parse_check('1>2',0)
+        self.parse_check('1<=1',1)
+        self.parse_check('1>=2',0)
+        self.parse_check('1<2',1)
+        self.parse_check('1>2',0)
 
     def test_if_then_else(self):
         self.parse_check('if 0 then 100 else 400',400)

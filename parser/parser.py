@@ -19,7 +19,12 @@ def p_expression_binop(p):
                   | expression OR expression
                   | expression AND expression
                   | expression MINUS expression
-                  | expression DIVIDE expression'''
+                  | expression DIVIDE expression
+                  | expression HIGHER expression
+                  | expression HIGHER_OR_EQUAL expression
+                  | expression LOWER expression
+                  | expression LOWER_OR_EQUAL expression
+                  | expression ISEQUAL expression'''
     p[0] = BinaryOperator(p[2], p[1], p[3])
 
 def p_expression_ifthenelse(p):

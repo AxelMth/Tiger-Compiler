@@ -24,6 +24,7 @@ keywords = {'array': 'ARRAY',
 # grammar rules.
 tokens = ('END', 'IN', 'LET', 'VAR',
           'PLUS', 'TIMES','OR','AND','MINUS','DIVIDE',
+          'HIGHER','LOWER','HIGHER_OR_EQUAL','LOWER_OR_EQUAL','ISEQUAL',
           'COMMA', 'SEMICOLON',
           'LPAREN', 'RPAREN',
           'NUMBER', 'ID',
@@ -41,6 +42,11 @@ t_COLON = r':'
 t_ASSIGN = r':='
 t_COMMA = r','
 t_SEMICOLON = r';'
+t_HIGHER = r'>'
+t_LOWER = r'<'
+t_HIGHER_OR_EQUAL = r'>='
+t_LOWER_OR_EQUAL = r'<='
+t_ISEQUAL = r'=='
 
 t_ignore = ' \t'
 
