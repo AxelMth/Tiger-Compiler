@@ -5,10 +5,12 @@ import ply.yacc as yacc
 tokens = tokenizer.tokens
 
 precedence = (
-    ('left','OR'),
-    ('left','AND'),
-    ('left', 'PLUS','MINUS'),
-    ('left','TIMES','DIVIDE')
+    ('nonassoc', 'ELSE'),
+    ('left', 'OR'),
+    ('left', 'AND'),
+    ('nonassoc', 'EQUAL', 'DIFFERENT', 'LOWER_OR_EQUAL', 'LOWER', 'HIGHER_OR_EQUAL', 'HIGHER'),
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE')
 )
 
 def p_expression_binop(p):

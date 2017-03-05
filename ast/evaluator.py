@@ -52,7 +52,6 @@ class Evaluator:
         else:
             else_part = None
         condition = ifThenElse.condition.accept(self)
-
         if condition != 0:
             return then_part
         else:
