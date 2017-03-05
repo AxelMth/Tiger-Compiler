@@ -18,17 +18,20 @@ keywords = {'array': 'ARRAY',
             'to': 'TO',
             'type': 'TYPE',
             'var': 'VAR',
-            'while': 'WHILE'}
+            'while': 'WHILE',
+            'int': 'INT'}
 
 # List of tokens that can be recognized and are handled by the current
 # grammar rules.
 tokens = ('END', 'IN', 'LET', 'VAR',
           'PLUS', 'TIMES','OR','AND','MINUS','DIVIDE',
-          'HIGHER','LOWER','HIGHER_OR_EQUAL','LOWER_OR_EQUAL','ISEQUAL',
+          'HIGHER','LOWER','HIGHER_OR_EQUAL','LOWER_OR_EQUAL','EQUAL','DIFFERENT',
           'COMMA', 'SEMICOLON',
           'LPAREN', 'RPAREN',
           'NUMBER', 'ID',
-          'COLON', 'ASSIGN','IF','THEN','ELSE')
+          'COLON', 'ASSIGN',
+	      'IF','THEN','ELSE',
+	      'FUNCTION','INT')
 
 t_PLUS = r'\+'
 t_TIMES = r'\*'
@@ -46,7 +49,8 @@ t_HIGHER = r'>'
 t_LOWER = r'<'
 t_HIGHER_OR_EQUAL = r'>='
 t_LOWER_OR_EQUAL = r'<='
-t_ISEQUAL = r'=='
+t_EQUAL = r'='
+t_DIFFERENT = r'<>'
 
 t_ignore = ' \t'
 
