@@ -24,7 +24,7 @@ class Evaluator:
         elif op == '&':
             return left & right
         elif op == '/':
-            return left / right
+            return left // right
         elif op == '-':
             return left - right
         elif op == '<':
