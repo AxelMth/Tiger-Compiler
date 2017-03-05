@@ -35,7 +35,7 @@ class TestEvaluator(unittest.TestCase):
         self.parse_check('1|2',1)
         self.parse_check('12&11',1)
         self.parse_check('(1&3)|5',1)
-        self.parse_check('1|0',1)
+        self.parse_check('2|0',1)
         self.parse_check('1&0',0)
         self.parse_check('(15-6)/9',1)
         self.parse_check('10-2-1',7)
