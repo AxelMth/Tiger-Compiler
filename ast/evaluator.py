@@ -20,13 +20,13 @@ class Evaluator:
         elif op == '*':
             return left * right
         elif op == '|':
-            if left | right != 0:
+            if left == 1 or right == 1:
                 return 1
             return 0
         elif op == '&':
-            if left & right != 0:
-                return 1
-            return 0
+            if left == 0 or right == 0:
+                return 0
+            return 1
         elif op == '/':
             return left // right
         elif op == '-':
