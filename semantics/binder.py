@@ -66,4 +66,12 @@ class Binder(Visitor):
         else:
             raise BindException("name not found: %s" % name)
 
-def
+    @visitor(Let)
+    def visit(self,let):
+        for decl in let.decls:
+            self.add_binding(decl)
+        for exp in let.exps:
+            if isinstance(exp,Let):
+                print("Let détecté")
+                break
+            self.lookup(exp)

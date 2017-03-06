@@ -46,6 +46,10 @@ def p_expression_identifier(p):
     'expression : ID'
     p[0] = Identifier(p[1])
 
+def p_expression_letExpression(p):
+    'expression : letExpression'
+    p[0] = p[1]
+
 def p_expr_uminus(p):
     'expression : MINUS expression %prec UMINUS'
     p[0] = BinaryOperator(p[1],IntegerLiteral(0),p[2])
@@ -87,7 +91,8 @@ def p_decl(p):
 
 def p_exps(p):
     '''exps : exp
-            | exps exp'''
+            | exps exp
+            | letExpression'''
     p[0] = [p[1]] if len(p) == 2 else p[1] + [p[2]]
 
 def p_exp(p):
@@ -96,7 +101,7 @@ def p_exp(p):
     p[0] = Identifier(p[1]) if len(p) == 2 else FunCall(p[1],p[3])
 
 def p_let_in_end(p):
-   '''expression : LET decls IN exps END'''
+   '''letExpression : LET decls IN exps END'''
    p[0] = Let(p[2],p[4])
 
 def p_error(p):
