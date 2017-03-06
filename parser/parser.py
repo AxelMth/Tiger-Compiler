@@ -85,14 +85,19 @@ def p_decl(p):
             | decl_fun'''
     p[0] = p[1]
 
-def p_call(p):
-    '''call : ID
-            | ID LPAREN args RPAREN'''
-    #p[0] = FunCall(p[1],p[3]) if len(p) > 2 else p[0]=Identifier(p[1])
+def p_exps(p):
+    '''exps : exp
+            | exps exp'''
+    p[0] = [p[1]] if len(p) == 2 else p[1] + [p[2]]
+
+def p_exp(p):
+    '''exp : ID
+           | ID LPAREN args RPAREN'''
+    p[0] = Identifier(p[1]) if len(p) == 2 else FunCall(p[1],p[3])
 
 def p_let_in_end(p):
-   '''expression : LET decls IN call END'''
-   p[0] = [p[2]]+[p[4]]
+   '''expression : LET decls IN exps END'''
+   p[0] = Let(p[2],p[4])
 
 def p_error(p):
     import sys

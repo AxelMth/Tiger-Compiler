@@ -52,7 +52,8 @@ t_LOWER_OR_EQUAL = r'<='
 t_EQUAL = r'='
 t_DIFFERENT = r'<>'
 
-t_ignore = r'//.*\n'
+t_ignore = ' \t'
+#t_ignore = r'//.*\n'
 
 # Declare the state
 states = (
