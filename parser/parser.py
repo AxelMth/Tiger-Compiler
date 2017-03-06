@@ -60,8 +60,8 @@ def p_decl_var(p):
     p[0] = VarDecl(p[2],None,p[4]) if len(p) == 5 else VarDecl(p[2],Type(p[4]),p[5])
 
 def p_decl_function(p):
-    '''decl_fun : FUNCTION ID LPAREN args RPAREN ASSIGN expression
-                | FUNCTION ID LPAREN args RPAREN COLON INT ASSIGN expression'''
+    '''decl_fun : FUNCTION ID LPAREN args RPAREN EQUAL expression
+                | FUNCTION ID LPAREN args RPAREN COLON INT EQUAL expression'''
     p[0] = FunDecl(p[2],p[4],Type(p[7]),p[9]) if len(p) == 10 else FunDecl(p[2],p[4],None,p[7])
 
 def p_args(p):
@@ -98,7 +98,7 @@ def p_exps(p):
 def p_exp(p):
     '''exp : ID
            | ID LPAREN args RPAREN'''
-    p[0] = Identifier(p[1]) if len(p) == 2 else FunCall(p[1],p[3])
+    p[0] = p[1] if len(p) == 2 else FunCall(Identifier(p[1]),p[3])
 
 def p_let_in_end(p):
    '''letExpression : LET decls IN exps END'''

@@ -72,6 +72,10 @@ class Binder(Visitor):
             self.add_binding(decl)
         for exp in let.exps:
             if isinstance(exp,Let):
-                print("Let détecté")
-                break
-            self.lookup(exp)
+                self.depth += 1
+                self.visit(exp)
+                self.depth -= 1
+            if isinstance(exp,FunCall):
+                self.lookup(exp.identifier)
+            else:
+                self.lookup(exp)
