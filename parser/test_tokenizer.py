@@ -43,13 +43,23 @@ class TestLexer(unittest.TestCase):
         self.check('LOWER_OR_EQUAL','<=')
         lexer.input(">=")
         self.check('HIGHER_OR_EQUAL','>=')
-        lexer.input("==")
-        self.check('ISEQUAL','==')
+        lexer.input("=")
+        self.check('EQUAL','=')
+        lexer.input("<>")
+        self.check('DIFFERENT','<>')
         self.check_end()
 
     def test_keyword(self):
         lexer.input("var")
         self.check('VAR', 'var')
+        lexer.input("int")
+        self.check('INT','int')
+        lexer.input("let")
+        self.check('LET','let')
+        lexer.input("in")
+        self.check('IN','in')
+        lexer.input("end")
+        self.check('END','end')
         self.check_end()
 
     def test_identifier(self):

@@ -20,23 +20,30 @@ class Evaluator:
         elif op == '*':
             return left * right
         elif op == '|':
-            return left | right
+            if left != 0 or right != 0:
+                return 1
+            return 0
         elif op == '&':
-            return left & right
+            if left == 0 or right == 0:
+                return 0
+            return 1
         elif op == '/':
-            return left / right
+            if right != 0:
+                return left // right
         elif op == '-':
             return left - right
         elif op == '<':
             return left < right
         elif op == '>':
             return left > right
-        elif op == '==':
+        elif op == '=':
             return left == right
         elif op == '<=':
             return left <= right
         elif op == '>=':
             return left >= right
+        elif op == '<>':
+            return left != right
         else:
             raise SyntaxError("unknown operator %s" % op)
 
@@ -44,12 +51,17 @@ class Evaluator:
     def visit(self, ifThenElse):
         '''When IfThenElse recognized, define what to return.
         Return then_part if condition is true else return else_part.'''
-        then_part, else_part = ifThenElse.then_part.accept(self), ifThenElse.else_part.accept(self)
+        then_part = ifThenElse.then_part.accept(self)
+        if ifThenElse.else_part is not None :
+            else_part =  ifThenElse.else_part.accept(self)
+        else:
+            else_part = None
         condition = ifThenElse.condition.accept(self)
         if condition != 0:
             return then_part
         else:
-            return else_part
+            if else_part is not None:
+                return else_part
 
     @visitor(None)
     def visit(self, node):

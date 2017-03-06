@@ -32,25 +32,31 @@ class TestEvaluator(unittest.TestCase):
         self.parse_check('2 * 3 + 1', 7)
 
     def test_binary_op(self):
-        self.parse_check('1|2',3)
-        self.parse_check('12&11',8)
-        self.parse_check('(1&3)|5',5)
+        self.parse_check('1|2',1)
+        self.parse_check('12&11',1)
+        self.parse_check('(1&3)|5',1)
+        self.parse_check('2|0',1)
+        self.parse_check('1&0',0)
         self.parse_check('(15-6)/9',1)
         self.parse_check('10-2-1',7)
-        self.parse_check('1==1',1)
-        self.parse_check('1==2',0)
+        self.parse_check('1=1',1)
+        self.parse_check('1=2',0)
         self.parse_check('1<2',1)
         self.parse_check('1>2',0)
         self.parse_check('1<=1',1)
         self.parse_check('1>=2',0)
         self.parse_check('1<2',1)
         self.parse_check('1>2',0)
+        self.parse_check('1<>2',1)
 
     def test_if_then_else(self):
         self.parse_check('if 0 then 100 else 400',400)
         self.parse_check('if 1 then 100 else 400',100)
         self.parse_check('if 0 then 100 else (200+300)',500)
         self.parse_check('if (1-1) then 100 else (200+1)',201)
+        self.parse_check('if 1 = 1 then 100 else 200',100)
+        self.parse_check('if 1 then 2',2)
+        self.parse_check('if 0 then 2',None)
 
 if __name__ == '__main__':
     unittest.main()
