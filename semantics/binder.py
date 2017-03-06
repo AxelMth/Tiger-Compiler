@@ -65,3 +65,5 @@ class Binder(Visitor):
                 return decl
         else:
             raise BindException("name not found: %s" % name)
+
+def

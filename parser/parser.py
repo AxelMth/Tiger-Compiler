@@ -10,7 +10,8 @@ precedence = (
     ('left', 'AND'),
     ('nonassoc', 'EQUAL', 'DIFFERENT', 'LOWER_OR_EQUAL', 'LOWER', 'HIGHER_OR_EQUAL', 'HIGHER'),
     ('left', 'PLUS', 'MINUS'),
-    ('left', 'TIMES', 'DIVIDE')
+    ('left', 'TIMES', 'DIVIDE'),
+    ('right','UMINUS')
 )
 
 def p_expression_binop(p):
@@ -44,6 +45,10 @@ def p_expression_number(p):
 def p_expression_identifier(p):
     'expression : ID'
     p[0] = Identifier(p[1])
+
+def p_expr_uminus(p):
+    'expression : MINUS expression %prec UMINUS'
+    p[0] = BinaryOperator(p[1],IntegerLiteral(0),p[2])
 
 def p_decl_var(p):
     '''decl_var : VAR ID ASSIGN expression
@@ -80,8 +85,14 @@ def p_decl(p):
             | decl_fun'''
     p[0] = p[1]
 
+def p_call(p):
+    '''call : ID
+            | ID LPAREN args RPAREN'''
+    #p[0] = FunCall(p[1],p[3]) if len(p) > 2 else p[0]=Identifier(p[1])
+
 def p_let_in_end(p):
-   '''expression : LET decls IN decl END'''
+   '''expression : LET decls IN call END'''
+   p[0] = [p[2]]+[p[4]]
 
 def p_error(p):
     import sys
