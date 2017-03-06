@@ -52,7 +52,7 @@ t_LOWER_OR_EQUAL = r'<='
 t_EQUAL = r'='
 t_DIFFERENT = r'<>'
 
-t_ignore = ' \t'
+t_ignore = r'//.*\n'
 
 # Declare the state
 states = (
@@ -73,7 +73,7 @@ def t_ccomment_end(t):
     t.lexer.pop_state()                     # Back to the previous state
 
 def t_ccomment_expr(t):
-    r'(.|\n)*?\*/'
+    r'((.|\n)*?\*/)|(//.*)'
     pass
 
 # Count lines when newlines are encounteredCan
