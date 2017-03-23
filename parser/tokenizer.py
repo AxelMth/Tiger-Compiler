@@ -57,7 +57,7 @@ t_ignore = ' \t'
 
 # Declare the state
 states = (
-  ('ccomment','exclusive')  
+  ('ccomment','exclusive'),  
 )
 
 # Match the first /*. Enter ccode state.
