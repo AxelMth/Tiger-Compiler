@@ -84,5 +84,11 @@ class TestLexer(unittest.TestCase):
         lexer.input("array")
         self.assertRaises(LexError, lexer.token)
 
+    def test_comment(self):
+        lexer.input("2 + 1 /* vjkdkcbdjkvbdcb */")
+        self.check('NUMBER',2)
+        self.check('PLUS','+')
+        self.check('NUMBER',1)
+
 if __name__ == '__main__':
     unittest.main()

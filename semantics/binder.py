@@ -66,16 +66,39 @@ class Binder(Visitor):
         else:
             raise BindException("name not found: %s" % name)
 
+    @visitor(None)
+    def visit(self, node):
+        raise BindException("unable to bind %s" % node)
+
     @visitor(Let)
     def visit(self,let):
+        if len(self.current_scope()) != 0:
+            self.push_new_scope()
         for decl in let.decls:
             self.add_binding(decl)
-        for exp in let.exps:
-            if isinstance(exp,Let):
-                self.depth += 1
-                self.visit(exp)
-                self.depth -= 1
-            if isinstance(exp,FunCall):
-                self.lookup(exp.identifier)
-            else:
-                self.lookup(exp)
+
+    @visitor(Identifier)
+    def visit(self,identifier):
+        decl = self.lookup(identifier)
+        if decl:
+            decl.accept(self)
+
+    @visitor(FunDecl)
+    def visit(self,funDecl):
+        self.depth += 1
+        funDecl.exp.accept(self)
+        'Implémentation'
+        self.depth -= 1
+
+    @visitor(FunCall)
+    def visit(self,funCall):
+        decl = self.lookup(funcall.identifier)
+        if decl && len(funcall.params)==len(func)
+'''    @visitor(VarDecl)
+    def visit(self,varDecl):
+
+    @visitor(IntegerLiteral)
+    def visit(self, i):
+        print(i.intValue)
+        return i.intValue
+'''
