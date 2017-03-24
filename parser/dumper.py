@@ -56,12 +56,17 @@ class Dumper(Visitor):
     @visitor(FunDecl)
     def visit(self, fundecl):
         dump_res = "function " + fundecl.name + "("
-        for arg in fundecl.args:
-            dump_res += arg.name + ","
-        dump_res += ")"
+        if len(fundecl.args) == 1:
+            dump_res += "%s: %s" % (fundecl.args[0].name, fundecl.args[0].type.typename)
+        else:
+            for i in range(len(fundeclself.args)-1):
+                dump_res += "%s: %s," % (fundecl.args[i].name, fundecl.args[i].type.typename)
+            dump_res += "%s: %s" % (fundecl.args[-1].name, fundecl.args[-1].type.typename)
+
+        dump_res += ") "
         if fundecl.type is not None:
                 dump_res += ": %s" % fundecl.type.typename
-        dump_res += " = %s " % fundecl.exp.accept(self)
+        dump_res += "= %s " % fundecl.exp.accept(self)
         return dump_res
 
     @visitor(FunCall)
