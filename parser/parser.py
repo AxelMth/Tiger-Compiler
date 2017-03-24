@@ -72,9 +72,12 @@ def p_argssome(p):
     p[0] = [p[1]] if len(p) == 2 else p[1] + [p[3]]
 
 def p_real_arg(p):
-    '''real_arg : ID
-                | ID COLON ID'''
-    p[0] = VarDecl(p[1],None,None) if len(p) == 2 else VarDecl(p[1],Type(p[3]),None)
+    '''real_arg : ID COLON ID'''
+    p[0] = VarDecl(p[1],Type(p[3]),None)
+
+def p_arg_call(p):
+    'real_arg : expression'
+    p[0] = p[1]
 
 def p_decls(p):
     '''decls : decl
