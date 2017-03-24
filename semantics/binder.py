@@ -108,8 +108,9 @@ class Binder(Visitor):
         for arg in fun.args:
             self.add_binding(arg)
         fun.exp.accept(self)
-        self.pop_scope()
         self.depth -= 1
+        self.pop_scope()
+
 
     @visitor(FunCall)
     def visit(self,fun):
