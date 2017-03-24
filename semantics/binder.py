@@ -126,8 +126,9 @@ class Binder(Visitor):
 
     @visitor(Identifier)
     def visit(self,ident):
-        self.lookup(ident)
-
+        ident = self.lookup(ident)
+        if isinstance(ident,FunDecl):
+            raise BindException("A function cannot be used as a variable")
     @visitor(BinaryOperator)
     def visit(self,binop):
         binop.left.accept(self)
