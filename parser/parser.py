@@ -64,12 +64,12 @@ def p_decl_fun(p):
 def p_args(p):
     '''args :
             | argssome'''
-    p[0] = [p[1]] if len(p) == 2 else []
+    p[0] = p[1] if len(p) == 2 else []
 
 def p_argssome(p):
     '''argssome : real_arg
                 | argssome COMMA real_arg'''
-    p[0] = p[1] if len(p) == 2 else p[1] + [p[3]]
+    p[0] = [p[1]] if len(p) == 2 else p[1] + [p[3]]
 
 def p_real_arg(p):
     '''real_arg : ID
@@ -90,7 +90,7 @@ def p_exps(p):
     '''exps : expression
             | exps SEMICOLON expression'''
     p[0] = [p[1]] if len(p) == 2 else p[1] + [p[2]]
-    
+
 def p_let(p):
     '''expression : LET decls IN exps END
                   | LET decls IN END'''
