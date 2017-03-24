@@ -125,6 +125,7 @@ def t_eof(t):
     try:
         if t.lexer.level > 0:
             sys.exit(1)
-    except Exception
-    
+    except Exception:
+        pass
+
 lexer = lex.lex()
