@@ -76,8 +76,8 @@ class Dumper(Visitor):
         elif len(funcall.params) > 1:
             for i in range(len(funcall.params)-1):
                 dump_res += "%s," % funcall.params[i].accept(self)
-            dump_res += "%s" % funcall.params[i].accept(self)
-        dump_res += ") "
+            dump_res += "%s" % funcall.params[-1].accept(self)
+        dump_res += ")"
         return dump_res
 
     @visitor(Let)
