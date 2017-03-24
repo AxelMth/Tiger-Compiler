@@ -121,12 +121,11 @@ def t_NUMBER(t):
 def t_error(t):
     raise lex.LexError("unknown token %s" % t.value, t.value)
 
-def t_eof(t):
+def t_ANY_eof(t):
     try:
-        if t.lexer.level > 0:
-            sys.stderr.write("Error EOF")
+        if t.lexer.level != 0:
             sys.exit(1)
-    except Exception:
-        pass
+    except AttributeError:
+        print("OEF detected !")
 
 lexer = lex.lex()
