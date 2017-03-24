@@ -43,8 +43,8 @@ def p_expression_number(p):
     p[0] = IntegerLiteral(p[1])
 
 def p_expression_identifier(p):
-    'expression : ID'
-    p[0] = Identifier(p[1])
+    '''expression : ID '''
+    p[0] = p[1]
 
 def p_expr_uminus(p):
     'expression : MINUS expression %prec UMINUS'
@@ -93,9 +93,9 @@ def p_exps(p):
 def p_exp(p):
     '''exp : ID
            | ID LPAREN args RPAREN'''
-    p[0] = p[1] if len(p) == 2 else FunCall(Identifier(p[1]),p[3])
+    p[0] = Identifier(p[1]) if len(p) == 2 else FunCall(Identifier(p[1]),p[3])
 
-def p_letExpression(p):
+def p_let(p):
     '''expression : LET decls IN exps END
                   | LET decls IN END'''
     p[0] = Let(p[2],p[4]) if len(p) == 6 else Let(p[2],[])
