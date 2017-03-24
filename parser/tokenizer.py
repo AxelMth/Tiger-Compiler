@@ -1,5 +1,5 @@
 import ply.lex as lex
-
+import sys
 # List of keywords. Each keyword will be return as a token of a specific
 # type, which makes it easier to match it in grammatical rules.
 keywords = {'array': 'ARRAY',
@@ -77,13 +77,14 @@ def t_oneccomment_error(t):
 def t_begin_ccomment(t):
     r'\/\*'
     t.lexer.level = 1
-    t.lexer.push_state('ccomment')          # Starts 'ccomment' state
+    # Starts 'ccomment' state
+    t.lexer.push_state('ccomment')
 
 def t_ccomment_inbricated(t):
     r'\/\*'
     t.lexer.level += 1
     t.lexer.push_state('ccomment')
-    
+
 def t_ccomment_end(t):
     r'\*\/'
     t.lexer.level -= 1
@@ -119,5 +120,9 @@ def t_NUMBER(t):
 
 def t_error(t):
     raise lex.LexError("unknown token %s" % t.value, t.value)
+
+def t_ANY_eof(t):
+    if t.lexer.level > 0:
+        sys.exit(1)
 
 lexer = lex.lex()
