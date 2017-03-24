@@ -76,10 +76,17 @@ def t_oneccomment_error(t):
 # Match the first /*. Enter ccode state.
 def t_begin_ccomment(t):
     r'\/\*'
+    t.lexer.level = 1
     t.lexer.push_state('ccomment')          # Starts 'ccomment' state
 
+def t_ccomment_inbricated(t):
+    r'\/\*'
+    t.lexer.level += 1
+    t.lexer.push_state('ccomment')
+    
 def t_ccomment_end(t):
     r'\*\/'
+    t.lexer.level -= 1
     t.lexer.pop_state()                     # Back to the previous state
 
 # For bad characters, we just skip over it
