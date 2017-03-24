@@ -43,8 +43,8 @@ def p_expression_number(p):
     p[0] = IntegerLiteral(p[1])
 
 def p_expression_identifier(p):
-    '''expression : ID '''
-    p[0] = p[1]
+    '''expression : ID'''
+    p[0] = Identifier(p[1])
 
 def p_expr_uminus(p):
     'expression : MINUS expression %prec UMINUS'

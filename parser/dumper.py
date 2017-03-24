@@ -74,5 +74,5 @@ class Dumper(Visitor):
             dump_res += "%s" % decl.accept(self)
         dump_res += "in "
         for exp in let.exps:
-            dump_res += "%s" % exp.accept(self)
+                dump_res += "%s" % exp.accept(self)
         return dump_res + " end"
