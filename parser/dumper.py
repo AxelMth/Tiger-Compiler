@@ -46,8 +46,8 @@ class Dumper(Visitor):
     @visitor(VarDecl)
     def visit(self,vardecl):
         dump_res = "var " + vardecl.name
-        if vardecl.escapes and self.semantics:
-            dump_res += "/*e*/"
+        #if vardecl.escapes and self.semantics:
+        dump_res += "/*e*/"
         if vardecl.type is not None:
                 dump_res += ": %s" % vardecl.type.typename
         dump_res += " := %s " % vardecl.exp.accept(self)
