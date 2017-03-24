@@ -58,7 +58,10 @@ class Dumper(Visitor):
         dump_res = "function " + fundecl.name + "("
         for arg in fundecl.args:
             dump_res += arg.name + ","
-        dump_res += ") = %s " % fundecl.exp.accept(self)
+        dump_res += ")"
+        if fundecl.type is not None:
+                dump_res += ": %s" % fundecl.type.typename
+        dump_res += " = %s " % fundecl.exp.accept(self)
         return dump_res
 
     @visitor(FunCall)
