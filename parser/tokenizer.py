@@ -123,7 +123,7 @@ def t_error(t):
 
 def t_eof(t):
     try:
-        if t.lexer.level > 0:
+        if t.lexer.level != 0:
             sys.exit(1)
     except Exception:
         pass
