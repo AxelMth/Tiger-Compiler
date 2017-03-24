@@ -18,8 +18,7 @@ keywords = {'array': 'ARRAY',
             'to': 'TO',
             'type': 'TYPE',
             'var': 'VAR',
-            'while': 'WHILE',
-            'int': 'INT'}
+            'while': 'WHILE'}
 
 # List of tokens that can be recognized and are handled by the current
 # grammar rules.
@@ -31,7 +30,7 @@ tokens = ('END', 'IN', 'LET', 'VAR',
           'NUMBER', 'ID',
           'COLON', 'ASSIGN',
 	      'IF','THEN','ELSE',
-	      'FUNCTION','INT')
+	      'FUNCTION')
 
 t_PLUS = r'\+'
 t_TIMES = r'\*'

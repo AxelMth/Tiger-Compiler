@@ -52,12 +52,12 @@ def p_expr_uminus(p):
 
 def p_decl_var(p):
     '''decl_var : VAR ID ASSIGN expression
-    		    | VAR ID COLON INT ASSIGN expression '''
-    p[0] = VarDecl(p[2],None,p[4]) if len(p) == 5 else VarDecl(p[2],Type(p[4]),p[5])
+    		    | VAR ID COLON ID ASSIGN expression '''
+    p[0] = VarDecl(p[2],None,p[4]) if len(p) == 5 else VarDecl(p[2],Type(p[4]),p[6])
 
 def p_decl_fun(p):
     '''decl_fun : FUNCTION ID LPAREN args RPAREN EQUAL expression
-                | FUNCTION ID LPAREN args RPAREN COLON INT EQUAL expression'''
+                | FUNCTION ID LPAREN args RPAREN COLON ID EQUAL expression'''
     p[0] = FunDecl(p[2],p[4],Type(p[7]),p[9]) if len(p) == 10 else FunDecl(p[2],p[4],None,p[7])
 
 def p_args(p):
@@ -72,7 +72,7 @@ def p_argssome(p):
 
 def p_real_arg(p):
     '''real_arg : ID
-                | ID COLON INT'''
+                | ID COLON ID'''
     p[0] = VarDecl(p[1],None,None) if len(p) == 2 else VarDecl(p[1],Type(p[3]),None)
 
 def p_decls(p):
