@@ -123,7 +123,7 @@ class Binder(Visitor):
 
     @visitor(Identifier)
     def visit(self,ident):
-        pass
+        self.lookup(ident)
 
     @visitor(BinaryOperator)
     def visit(self,binop):
