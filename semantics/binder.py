@@ -115,12 +115,14 @@ class Binder(Visitor):
     @visitor(FunCall)
     def visit(self,fun):
         fun_id = self.lookup(fun.identifier)
-        if len(fun_id.args) == len(fun.params):
-            for param in fun.params:
-                param.accept(self)
+        if isinstance(fun_id,FunCall):
+            if len(fun_id.args) == len(fun.params):
+                for param in fun.params:
+                    param.accept(self)
+            else:
+                raise BindException("Wrong number of arguments while calling %s, expected %s, given %s" % (fun.identifier.name,len(fun_id.args),len(fun.params)))
         else:
-            raise BindException("Wrong number of arguments while calling %s, expected %s, given %s" % (fun.identifier.name,len(fun_id.args),len(fun.params)))
-
+            raise BindException("This id cannot be used as a function")
     @visitor(Identifier)
     def visit(self,ident):
         self.lookup(ident)
