@@ -38,7 +38,42 @@ class Dumper(Visitor):
     def visit(self, id):
         if self.semantics:
             diff = id.depth - id.decl.depth
-            scope_diff = "{%d}" % diff if diff else ''
+            scope_diff = "/*%d*/" % diff if diff else ''
         else:
             scope_diff = ''
         return '%s%s' % (id.name, scope_diff)
+
+    @visitor(VarDecl)
+    def visit(self,vardecl):
+        dump_res = "var " + vardecl.name
+        if vardecl.escapes and self.semantics:
+            dump_res += "/*e*/"
+        dump_res += " := %s " % vardecl.exp.accept(self)
+        return dump_res
+
+    @visitor(FunDecl)
+    def visit(self, fundecl):
+        dump_res = "function " + fundecl.name + "("
+        for arg in fundecl.args:
+            dump_res += arg.name + ","
+        dump_res += ") = %s " % fundecl.exp.accept(self)
+        return dump_res
+
+    @visitor(FunCall)
+    def visit(self, funcall):
+        dump_res = funcall.identifier.name + "("
+        for param in funcall.params:
+            dump_res += param.accept(self) + ","
+        dump_res += ")"
+        return dump_res
+
+    @visitor(Let)
+    def visit(self,let):
+        dump_res = "let "
+        for decl in let.decls:
+            dump_res += "%s" % decl.accept(self)
+            print(decl)
+        dump_res += "in "
+        for exp in let.exps:
+            dump_res += "%s" % exp.accept(self)
+        return dump_res + " end"

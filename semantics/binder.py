@@ -114,15 +114,15 @@ class Binder(Visitor):
     @visitor(FunCall)
     def visit(self,fun):
         fun_id = self.lookup(fun.identifier)
-        if len(fun_id.params) != len(fun.args):
-            for param in fun_id.params:
+        if len(fun_id.args) == len(fun.params):
+            for param in fun.params:
                 param.accept(self)
         else:
-            raise BindException("Wrong number of arguments while calling %s" % fun.name)
+            raise BindException("Wrong number of arguments while calling %s, expected %s, given %s" % (fun.identifier.name,len(fun_id.args),len(fun.params)))
 
     @visitor(Identifier)
-    def visit(self,id):
-        decl = self.accept(id)
+    def visit(self,ident):
+        pass
 
     @visitor(BinaryOperator)
     def visit(self,binop):
