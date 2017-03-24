@@ -57,14 +57,24 @@ t_ignore = ' \t'
 
 # Declare the state
 states = (
-  ('ccomment','exclusive'),  
+  ('oneccomment','exclusive'),
+  ('ccomment','exclusive'),
 )
 
-# Match the first /*. Enter ccode state.
-def t_ccomment(t):
-    r'\/\*'                                 # Initial brace level
-    t.lexer.push_state('ccomment')               # Enter 'ccomment' state
+def t_begin_oneccomment(t):
+    r'\/\/'
+    t.lexer.push_state('oneccomment')
 
+def t_oneccomment_end(t):
+    r'\n'
+    t.lexer.pop_state()
+
+t_oneccomment_ignore = " \t"
+
+def t_oneccomment_error(t):
+    t.lexer.skip(1)
+
+# Match the first /*. Enter ccode state.
 def t_begin_ccomment(t):
     r'\/\*'
     t.lexer.push_state('ccomment')          # Starts 'ccomment' state
@@ -73,10 +83,11 @@ def t_ccomment_end(t):
     r'\*\/'
     t.lexer.pop_state()                     # Back to the previous state
 
+# For bad characters, we just skip over it
 def t_ccomment_error(t):
-    print("error detected")
+    t.lexer.skip(1)
 
-t_ccomment_ignore = " \t\n"
+t_ccomment_ignore = "\t\n"
 
 # Count lines when newlines are encounteredCan
 def t_newline(t):

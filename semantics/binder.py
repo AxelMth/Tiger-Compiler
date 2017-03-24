@@ -68,14 +68,59 @@ class Binder(Visitor):
 
     @visitor(Let)
     def visit(self,let):
+        self.push_new_scope()
         for decl in let.decls:
-            self.add_binding(decl)
+            decl.accept(self)
         for exp in let.exps:
-            if isinstance(exp,Let):
-                self.depth += 1
-                self.visit(exp)
-                self.depth -= 1
-            if isinstance(exp,FunCall):
-                self.lookup(exp.identifier)
-            else:
-                self.lookup(exp)
+            exp.accept(self)
+        self.pop_scope()
+
+
+    @visitor(VarDecl)
+    def visit(self,var):
+        var.exp.accept(self)
+        self.add_binding(var)
+
+    @visitor(FunDecl)
+    def visit(self,fun):
+        self.add_binding(fun)
+        self.push_new_scope()
+        self.depth += 1
+        for arg in fun.args:
+            self.add_binding(arg)
+        fun.exp.accept(self)
+        self.pop_scope()
+        self.depth -= 1
+
+    @visitor(FunCall)
+    def visit(self,fun):
+        fun_id = self.lookup(fun.identifier)
+        if len(fun_id.params) != len(fun.args):
+            for param in fun_id.params:
+                param.accept(self)
+        else:
+            raise BindException("Wrong number of arguments while calling %s" % fun.name)
+
+    @visitor(Identifier)
+    def visit(self,id):
+        decl = self.accept(id)
+
+    @visitor(BinaryOperator)
+    def visit(self,binop):
+        binop.left.accept(self)
+        binop.right.accept(self)
+
+    @visitor(IfThenElse)
+    def visit(self,ifthenelse):
+        ifthenelse.condition.accept(self)
+        ifthenelse.then_part.accept(self)
+        if ifthenelse.else_part is not None:
+            ifthenelse.else_part.accept(self)
+
+    @visitor(IntegerLiteral)
+    def visit(self,int):
+        pass
+
+    @visitor(None)
+    def visit(self, node):
+        raise BindException("Unable to bind %s" % node)
