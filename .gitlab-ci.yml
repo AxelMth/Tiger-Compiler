@@ -1,12 +1,1 @@
-image: rfc1149/se202
-
-cache:
-  key: all
-  paths:
-    - download
-
-test:
-  script:
-    - python -m unittest
-    - (mkdir -p download && cd download && wget -N -q https://www.rfc1149.net/tmp/evaluation-se202.tar.gz) && tar zxf download/evaluation-se202.tar.gz
-    - support/run-step
+.git/annex/objects/PV/Xf/SHA256E-s280--67892e5224c71bb0353a9232a5996019073d66baa4ca1e0ec80387eaab6a5153.yml/SHA256E-s280--67892e5224c71bb0353a9232a5996019073d66baa4ca1e0ec80387eaab6a5153.yml
