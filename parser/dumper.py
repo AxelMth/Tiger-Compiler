@@ -47,7 +47,6 @@ class Dumper(Visitor):
         dump_res = "var " + vardecl.name
         if vardecl.escapes and self.semantics:
             dump_res += "/*e*/"
-        print(vardecl.type.typename)
         if vardecl.type is not None:
             if vardecl.type.typename != "void":
                 dump_res += ": %s" % vardecl.type.typename
