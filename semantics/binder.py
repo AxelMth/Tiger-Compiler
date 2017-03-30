@@ -94,7 +94,6 @@ class Binder(Visitor):
             exp.accept(self)
         self.pop_scope()
 
-
     @visitor(VarDecl)
     def visit(self,var):
         var.exp.accept(self)
@@ -110,7 +109,6 @@ class Binder(Visitor):
         fun.exp.accept(self)
         self.depth -= 1
         self.pop_scope()
-
 
     @visitor(FunCall)
     def visit(self,fun):
