@@ -126,6 +126,6 @@ def t_ANY_eof(t):
         if t.lexer.level != 0:
             sys.exit(1)
     except AttributeError:
-        print("OEF detected !")
+        pass
 
 lexer = lex.lex()

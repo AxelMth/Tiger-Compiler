@@ -1,7 +1,6 @@
 from ast.nodes import *
 from utils.visitor import *
 
-
 class Dumper(Visitor):
 
     def __init__(self, semantics):
@@ -48,8 +47,10 @@ class Dumper(Visitor):
         dump_res = "var " + vardecl.name
         if vardecl.escapes and self.semantics:
             dump_res += "/*e*/"
+        print(vardecl.type.typename)
         if vardecl.type is not None:
-            dump_res += ": %s" % vardecl.type.typename
+            if vardecl.type.typename != "void":
+                dump_res += ": %s" % vardecl.type.typename
         dump_res += " := %s " % vardecl.exp.accept(self)
         return dump_res
 
@@ -64,6 +65,7 @@ class Dumper(Visitor):
             dump_res += "%s: %s" % (fundecl.args[-1].name, fundecl.args[-1].type.typename)
         dump_res += ") "
         if fundecl.type is not None:
+            if fundeck.type.typename != "void":
                 dump_res += ": %s " % fundecl.type.typename
         dump_res += "= %s " % fundecl.exp.accept(self)
         return dump_res
@@ -89,3 +91,17 @@ class Dumper(Visitor):
         for exp in let.exps:
                 dump_res += "%s" % exp.accept(self)
         return dump_res + " end"
+
+    @visitor(SeqExp)
+    def visit(self,seq):
+        dumb_res = ""
+        if len(seq.exps) == 1:
+            return exp.accept(self)
+        if len(seq.exps) > 1:
+            dumb_res = "("
+            for i in range(len(seq.exps)-1):
+                dumb_res += seq.exps[i].accept(self) + "; "
+            dumb_res += seq.exps[-1].accept(self) + ")"
+        else:
+            dumb_res = "()"
+        return dumb_res

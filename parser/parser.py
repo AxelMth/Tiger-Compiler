@@ -34,9 +34,10 @@ def p_expression_ifthenelse(p):
                   | IF expression THEN expression ELSE expression'''
     p[0] = IfThenElse(p[2],p[4],p[6]) if len(p) == 7 else IfThenElse(p[2],p[4],None)
 
-def p_expression_parentheses(p):
-    'expression : LPAREN expression RPAREN'
-    p[0] = p[2]
+def p_seq_expr(p):
+    '''expression : LPAREN exps RPAREN
+                  | LPAREN RPAREN'''
+    p[0] = SeqExp(p[2]) if len(p) == 4 else SeqExp([])
 
 def p_expression_number(p):
     'expression : NUMBER'
@@ -92,7 +93,7 @@ def p_decl(p):
 def p_exps(p):
     '''exps : expression
             | exps SEMICOLON expression'''
-    p[0] = [p[1]] if len(p) == 2 else p[1] + [p[2]]
+    p[0] = [p[1]] if len(p) == 2 else p[1] + [p[3]]
 
 def p_let(p):
     '''expression : LET decls IN exps END

@@ -1,4 +1,4 @@
-#
+    #
 # This file contains the definition of the nodes used in the Tiger
 # project. It must not be modified.
 #
