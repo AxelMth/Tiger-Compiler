@@ -65,7 +65,7 @@ class Dumper(Visitor):
             dump_res += "%s: %s" % (fundecl.args[-1].name, fundecl.args[-1].type.typename)
         dump_res += ") "
         if fundecl.type is not None:
-            if fundeck.type.typename != "void":
+            if fundecl.type.typename != "void":
                 dump_res += ": %s " % fundecl.type.typename
         dump_res += "= %s " % fundecl.exp.accept(self)
         return dump_res
@@ -96,7 +96,7 @@ class Dumper(Visitor):
     def visit(self,seq):
         dumb_res = ""
         if len(seq.exps) == 1:
-            return exp.accept(self)
+            return seq.exps[0].accept(self)
         elif len(seq.exps) > 1:
             dumb_res = "("
             for i in range(len(seq.exps)-1):
