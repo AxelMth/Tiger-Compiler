@@ -191,7 +191,6 @@ class While(Loop):
         self.exp = exp
         self.children = [condition, exp]
 
-
 class For(Loop):
 
     def __init__(self, indexdecl, low_bound, high_bound, exp):
