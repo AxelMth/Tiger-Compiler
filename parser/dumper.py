@@ -97,7 +97,7 @@ class Dumper(Visitor):
         dumb_res = ""
         if len(seq.exps) == 1:
             return exp.accept(self)
-        if len(seq.exps) > 1:
+        else if len(seq.exps) > 1:
             dumb_res = "("
             for i in range(len(seq.exps)-1):
                 dumb_res += seq.exps[i].accept(self) + "; "
