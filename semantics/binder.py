@@ -169,7 +169,7 @@ class Binder(Visitor):
         fo.low_bound.accept(self)
         fo.high_bound.accept(self)
         self.push_new_scope()
-        fo.indexdecl.accept(self)
+        self.add_binding(fo.indexdecl)
         self.push_new_loop(fo)
         fo.exp.accept(self)
         self.pop_loop()
