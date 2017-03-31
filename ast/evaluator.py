@@ -60,9 +60,9 @@ class Evaluator:
     def visit(self, ifThenElse):
         '''When IfThenElse recognized, define what to return.
         Return then_part if condition is true else return else_part.'''
-        condition,then_part = ifThenElse.condition.accept(self),ifThenElse.then_part.accept(self)
+        condition = ifThenElse.condition.accept(self)
         if condition != 0:
-            return then_part
+            return ifThenElse.then_part.accept(self)
         else:
             if ifThenElse.else_part is not None:
                 else_part = ifThenElse.else_part.accept(self)
