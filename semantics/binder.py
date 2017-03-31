@@ -159,9 +159,11 @@ class Binder(Visitor):
 
     @visitor(While)
     def visit(self,whil):
+        self.push_new_loop()
         whil.condition.accept(self)
         whil.exp.accept(self)
-
+        self.pop_loop()
+        
     @visitor(For)
     def visit(self, fo):
         fo.low_bound.accept(self)
