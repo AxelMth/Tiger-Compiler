@@ -94,7 +94,7 @@ def t_ccomment_end(t):
 def t_ccomment_error(t):
     t.lexer.skip(1)
 
-t_ccomment_ignore = "\t\n"
+t_ccomment_ignore = " \t\n"
 
 # Count lines when newlines are encounteredCan
 def t_newline(t):
