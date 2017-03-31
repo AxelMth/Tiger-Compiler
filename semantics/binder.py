@@ -163,15 +163,15 @@ class Binder(Visitor):
         whil.condition.accept(self)
         whil.exp.accept(self)
         self.pop_loop()
-        
+
     @visitor(For)
     def visit(self, fo):
+        self.push_new_loop()
+        self.add_binding(fo.indexdecl)
         fo.low_bound.accept(self)
         fo.high_bound.accept(self)
-        self.push_new_scope()
-        self.add_binding(fo.indexdecl)
         fo.exp.accept(self)
-        self.pop_scope()
+        self.pop_loop()
 
     @visitor(Break)
     def visit(self, break_keyword):
