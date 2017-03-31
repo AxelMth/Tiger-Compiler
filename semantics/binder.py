@@ -171,6 +171,10 @@ class Binder(Visitor):
         fo.exp.accept(self)
         self.pop_scope()
 
+    @visitor(Break)
+    def visit(self,br):
+        self.pop_scope()
+        
     @visitor(None)
     def visit(self, node):
         raise BindException("Unable to bind %s" % node)

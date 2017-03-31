@@ -123,6 +123,10 @@ class Dumper(Visitor):
     def visit(self,indexdecl):
         return indexdecl.name
 
+    @visitor(Break):
+    def visit(self,br):
+        return "break"
+
     @visitor(For)
     def visit(self,fo):
         dump_res = "for " + fo.indexdecl.accept(self) + " := " + fo.low_bound.accept(self) + " to " + fo.high_bound.accept(self) + " do " + fo.exp.accept(self)
