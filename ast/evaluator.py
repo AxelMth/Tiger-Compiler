@@ -23,15 +23,20 @@ class Evaluator:
                 return 0
             else:
                 return 1
+        elif op == '|':
+            left = binop.left.accept(self)
+            if left != 0:
+                return 1
+            right = binop.right.accept(self)
+            if right != 0:
+                return 1
+            else:
+                return 0
         left,right = binop.left.accept(self),binop.right.accept(self)
         if op == '+':
             return left + right
         elif op == '*':
             return left * right
-        elif op == '|':
-            if left != 0 or right != 0:
-                return 1
-            return 0
         elif op == '/':
             return left // right
         elif op == '-':
