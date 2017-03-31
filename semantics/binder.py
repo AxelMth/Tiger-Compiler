@@ -88,8 +88,10 @@ class Binder(Visitor):
     @visitor(Let)
     def visit(self,let):
         self.push_new_scope()
+        self.push_new_loop(None)
         for decl in let.decls:
             decl.accept(self)
+        self.pop_loop()
         for exp in let.exps:
             exp.accept(self)
         self.pop_scope()
@@ -176,9 +178,9 @@ class Binder(Visitor):
         self.pop_scope()
 
     @visitor(Break)
-    def visit(self, break_keyword):
-        break_keyword.loop = self.current_loop()
-        if not break_keyword.loop:
+    def visit(self, bra):
+        bra.loop = self.current_loop()
+        if not bra.loop:
             raise BindException("Break should be inside a loop")
 
     @visitor(None)
