@@ -113,3 +113,8 @@ class Dumper(Visitor):
     def visit(self,ass):
         dump_res = ass.identifier.accept(self) + " := " + ass.exp.accept(self)
         return dump_res
+
+    @visitor(While)
+    def visit(self,whil):
+        dump_res = "while " + whil.condition.accept(self) + " do " + whil.exp.accept(self)
+        return dump_res

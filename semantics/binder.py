@@ -157,6 +157,11 @@ class Binder(Visitor):
         ass.identifier.accept(self)
         ass.exp.accept(self)
 
+    @visitor(While)
+    def visit(self,whil):
+        whil.condition.accept(self)
+        whil.exp.accept(self)
+
     @visitor(None)
     def visit(self, node):
         raise BindException("Unable to bind %s" % node)
