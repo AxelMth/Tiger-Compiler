@@ -235,7 +235,7 @@ class Assignment(Node):
         assert isinstance(identifier, Identifier), \
             "left-hand side of assignment must be an Identifier instance"
         assert isinstance(exp, Node), \
-            "right-hande side of assignment must be a Node instance"
+            "right-hand side of assignment must be a Node instance"
         self.identifier = identifier
         self.exp = exp
         self.children = [identifier, exp]
