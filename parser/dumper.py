@@ -97,17 +97,17 @@ class Dumper(Visitor):
 
     @visitor(SeqExp)
     def visit(self,seq):
-        dumb_res = ""
+        dump_res = ""
         if len(seq.exps) == 1:
             return seq.exps[0].accept(self)
         elif len(seq.exps) > 1:
-            dumb_res = "("
+            dump_res = "("
             for i in range(len(seq.exps)-1):
-                dumb_res += seq.exps[i].accept(self) + "; "
-            dumb_res += seq.exps[-1].accept(self) + ")"
+                dump_res += seq.exps[i].accept(self) + "; "
+            dump_res += seq.exps[-1].accept(self) + ")"
         else:
-            dumb_res = "()"
-        return dumb_res
+            dump_res = "()"
+        return dump_res
 
     @visitor(Assignment)
     def visit(self,ass):
@@ -117,4 +117,13 @@ class Dumper(Visitor):
     @visitor(While)
     def visit(self,whil):
         dump_res = "while " + whil.condition.accept(self) + " do " + whil.exp.accept(self)
+        return dump_res
+
+    @visitor(IndexDecl)
+    def visit(self,indexdecl):
+        return indexdecl.name
+
+    @visitor(For)
+    def visit(self,fo):
+        dump_res = "for " + fo.indexdecl.accept(self) + " := " + fo.low_bound.accept(self) + " to " + fo.high_bound.accept(self) + " do " + fo.exp.accept(self)
         return dump_res

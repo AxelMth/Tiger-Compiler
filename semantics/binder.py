@@ -162,6 +162,15 @@ class Binder(Visitor):
         whil.condition.accept(self)
         whil.exp.accept(self)
 
+    @visitor(For)
+    def visit(self, fo):
+        fo.low_bound.accept(self)
+        fo.high_bound.accept(self)
+        self.push_new_scope()
+        self.add_binding(fo.indexdecl)
+        fo.exp.accept(self)
+        self.pop_scope()
+
     @visitor(None)
     def visit(self, node):
         raise BindException("Unable to bind %s" % node)
