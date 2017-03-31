@@ -1,1 +1,12 @@
-../.git/annex/objects/Q6/M2/SHA256E-s355--4f117d414deccbabc8f72d3615d6a3774ccafeb1259bf23fe06bc4812a0f4c98.py/SHA256E-s355--4f117d414deccbabc8f72d3615d6a3774ccafeb1259bf23fe06bc4812a0f4c98.py
+from ir.nodes import *
+from frame.frame import Frame
+
+
+def reorder_blocks(seq, frame):
+    """Reorder blocks in seq so that the negative branch of a CJUMP always
+    follows the CJUMP itself. frame is the frame of the corresponding
+    function."""
+    assert(isinstance(seq, SEQ))
+    assert(isinstance(frame, Frame))
+    # Implement here
+    return seq
