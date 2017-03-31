@@ -144,6 +144,11 @@ class Binder(Visitor):
     def visit(self,int):
         pass
 
+    @visitor(SeqExp)
+    def visit(self, seq):
+        for exp in seq.exps:
+            exp.accept(self)
+
     @visitor(None)
     def visit(self, node):
         raise BindException("Unable to bind %s" % node)
