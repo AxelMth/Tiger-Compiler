@@ -13,8 +13,17 @@ class Evaluator:
     def visit(self, binop):
         '''When BinaryOperator recognized, define how to behave.
         Return the result of the binary operation for each BinaryOperator.'''
-        left, right = binop.left.accept(self), binop.right.accept(self)
         op = binop.op
+        if op == '&':
+            left = binop.left.accept(self)
+            if left == 0:
+                return 0
+            right = binop.right.accept(self)
+            if right == 0:
+                return 0
+            else:
+                return 1
+        left,right = binop.left.accept(self),binop.right.accept(self)
         if op == '+':
             return left + right
         elif op == '*':
@@ -23,10 +32,6 @@ class Evaluator:
             if left != 0 or right != 0:
                 return 1
             return 0
-        elif op == '&':
-            if left == 0 or right == 0:
-                return 0
-            return 1
         elif op == '/':
             return left // right
         elif op == '-':
