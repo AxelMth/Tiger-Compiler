@@ -172,9 +172,11 @@ class Binder(Visitor):
         self.pop_scope()
 
     @visitor(Break)
-    def visit(self,br):
-        self.pop_scope()
-        
+    def visit(self, break_keyword):
+        break_keyword.loop = self.current_loop()
+        if not break_keyword.loop:
+            raise BindException("Break should be inside a loop")
+
     @visitor(None)
     def visit(self, node):
         raise BindException("Unable to bind %s" % node)
