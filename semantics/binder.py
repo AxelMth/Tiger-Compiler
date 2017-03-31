@@ -158,20 +158,20 @@ class Binder(Visitor):
         ass.exp.accept(self)
 
     @visitor(While)
-    def visit(self, while_loop):
-        while_loop.condition.accept(self)
-        self.push_new_loop(while_loop)
-        while_loop.exp.accept(self)
+    def visit(self, whil):
+        whil.condition.accept(self)
+        self.push_new_loop(whil)
+        whil.exp.accept(self)
         self.pop_loop()
 
     @visitor(For)
-    def visit(self, for_loop):
-        for_loop.low_bound.accept(self)
-        for_loop.high_bound.accept(self)
+    def visit(self, fo):
+        fo.low_bound.accept(self)
+        fo.high_bound.accept(self)
         self.push_new_scope()
-        for_loop.indexdecl.accept(self)
-        self.push_new_loop(for_loop)
-        for_loop.exp.accept(self)
+        fo.indexdecl.accept(self)
+        self.push_new_loop(fo)
+        fo.exp.accept(self)
         self.pop_loop()
         self.pop_scope()
 
