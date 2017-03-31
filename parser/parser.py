@@ -100,6 +100,10 @@ def p_let(p):
                   | LET decls IN END'''
     p[0] = Let(p[2],p[4]) if len(p) == 6 else Let(p[2],[])
 
+def p_assign(p):
+    '''expression : ID ASSIGN expression'''
+    p[0] = Assignment(Identifier(p[1]),p[3])
+
 def p_error(p):
     import sys
     sys.stderr.write("no way to analyze %s\n" % p)

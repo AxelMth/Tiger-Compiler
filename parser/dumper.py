@@ -107,3 +107,8 @@ class Dumper(Visitor):
         else:
             dumb_res = "()"
         return dumb_res
+
+    @visitor(Assignment)
+    def visit(self,ass):
+        dump_res = ass.identifier.accept(self) + " := " + ass.exp.accept(self)
+        return dump_res

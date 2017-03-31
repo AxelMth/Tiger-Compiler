@@ -149,6 +149,14 @@ class Binder(Visitor):
         for exp in seq.exps:
             exp.accept(self)
 
+    @visitor(Assignment)
+    def visit(self,ass):
+        previous_decl = self.lookup(ass.identifier)
+        if not isinstance(previous_decl,VarDecl):
+            raise BindException("Before assigning a variable, you should declare it !")
+        ass.identifier.accept(self)
+        ass.exp.accept(self)
+
     @visitor(None)
     def visit(self, node):
         raise BindException("Unable to bind %s" % node)
