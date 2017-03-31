@@ -28,8 +28,7 @@ class Evaluator:
                 return 0
             return 1
         elif op == '/':
-            if right != 0:
-                return left // right
+            return left // right
         elif op == '-':
             return left - right
         elif op == '<':
