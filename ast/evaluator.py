@@ -65,8 +65,9 @@ class Evaluator:
 
     @visitor(SeqExp)
     def visit(self,seq):
-        for exp in seq.exps:
-            return exp.accept(self)
+        for i in range(len(seq.exps)-1):
+            seq.exps[i].accept(self)
+        return seq.exps[-1].accept(self)
 
     @visitor(None)
     def visit(self, node):
