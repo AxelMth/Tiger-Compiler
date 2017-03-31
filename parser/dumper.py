@@ -123,7 +123,7 @@ class Dumper(Visitor):
     def visit(self,indexdecl):
         return indexdecl.name
 
-    @visitor(Break):
+    @visitor(Break)
     def visit(self,br):
         return "break"
 
