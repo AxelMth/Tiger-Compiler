@@ -28,7 +28,24 @@ def reorder_blocks(seq, frame):
                 blocks[index] += stm
     print(blocks)
     # Trace determination
-    blocks_examined = {}
-
-
+    blocks_examined = {}'''
+    blocks = {}
+    labels = []
+    inside_blocks = False
+    for stm in seq.stms:
+        if isinstance(stm,LABEL):
+            if inside_blocks:
+                next_label = stm.label.name
+                blocks[current_label].append(JUMP(NAME(next_label)))
+            current_label = stm.label.name
+            labels.append(current_label)
+            blocks[current_label] = []
+            inside_blocks = True
+        elif inside_blocks:
+            if not isinstance(stm,LABEL):
+                blocks[current_label].append(stm)
+            if isinstance(stm,JUMP) or isinstance(stm,CJUMP):
+                inside_blocks = False
+    print(blocks)
+    print(labels)'''
     return seq
